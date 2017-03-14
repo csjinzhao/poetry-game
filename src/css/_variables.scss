@@ -1,0 +1,60 @@
+@import "functions";
+
+// 字体族
+$font-family-sans-serif: "Helvetica Neue", Helvetica, Arial, sans-serif    !default;
+$font-family-serif:      Georgia, "Times New Roman", Times, serif          !default;
+$font-family-monospace:  Menlo, Monaco, Consolas, "Courier New", monospace !default;
+$font-family-base:       $font-family-sans-serif                           !default;
+
+// 字体尺寸
+$font-root:     16px          !default;
+$font-base:     1rem          !default;
+$font-16:       r(16)         !default;
+$font-18:       r(18)         !default;
+$font-20:       r(20)         !default;
+$font-22:       r(22)         !default;
+$font-24:       r(24)         !default;
+$font-26:       r(26)         !default;
+$font-28:       r(28)         !default;
+$font-30:       r(30)         !default;
+$font-32:       r(32)         !default;
+$font-36:       r(36)         !default;
+$font-40:       r(40)         !default;
+$font-50:       r(50)         !default;
+
+// 文字颜色
+$text-white:         #ffffff       !default;
+$text-black:         #000000       !default;
+$text-red:           #dd4b89       !default;
+$text-yellow:        #f9fe75       !default;
+$text-blue:          #77c5fc       !default;
+$text-green:         #60d255       !default;
+
+$text-dark:          #000000       !default;
+$text-normal:        #333333       !default;
+$text-light:         #808080       !default;
+
+// 背景颜色
+$bg-white:           #ffffff       !default;
+$bg-black:           #000000       !default;
+$bg-grey:            #f2f2f2       !default;
+$bg-red:             #dd4b89       !default;
+$bg-yellow:          #f9fe75       !default;
+$bg-blue:            #77c5fc       !default;
+$bg-green:           #60d255       !default;
+
+// 边框颜色
+$border-grey:        #cccccc        !default;
+$border-grey-light:  #e6e6e6        !default;
+
+// 层叠顺序
+$z-level-0: 9                 !default;
+$z-level-1: 99                !default;
+$z-level-2: 999               !default;
+$z-level-3: 9999              !default;
+$z-level-4: 99999             !default;
+$z-level-5: 999999            !default;
+$z-level-6: 9999999           !default;
+$z-level-7: 99999999          !default;
+$z-level-8: 999999999         !default;
+$z-level-9: 9999999999        !default;

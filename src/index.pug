@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+html(lang="en")
+head
+  meta(charset="UTF-8")
+  meta(http-equiv="X-UA-Compatible" content="IE=edge,chrome=1")
+  meta(name="format-detection" content="telephone=no,email=no,address=no")
+  meta(name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no")
+  title 全民诗词大赛
+  link(rel="stylesheet", href="./css/index.css")
+  script.
+    var html = window.document.documentElement
+    var sw = html.clientWidth
+    var sh = html.clientHeight
+
+    html.dataset.sw = sw
+    html.dataset.sh = sh
+    html.style.fontSize = sw * (32 / 640) + 'px'
+body
+  div#index.index-page(v-cloak)
+    img.fix-lt.top-bg(src="./img/top_bg.png", alt="")
+    img.fix-lb.bottom-bg(src="./img/bottom_bg.png", alt="")
+
+    //- 首页
+    div.index-box
+      //- 首页
+      div.index-content(v-if="!hasWin")
+        div.index-top-content
+          img.index-shadow(src="./img/index_shadow.png")
+          div.index-leftbox
+            img.index-img1(src="./img/index_img1.png", alt="")
+            a.text-24.text-white.text-center.other-link(href="./rank.html") 排行榜
+            a.text-24.text-white.text-center.other-link(href="./award.html") 奖励榜
+            a.text-24.text-white.text-center.other-link(href="./rule.html") 大赛规则
+          div.index-rightbox
+            div.index-titlebox
+              h2.text-50.text-center.text-bold.index-title {{ model.gameTitle }}
+              a.sponsor-link(href="{{ model.sponsor.sponsor_link }}", target="_blank")
+                img.sponsor-logo(:src="model.sponsor.sponsor_logo || defaultImg", alt="赞助商logo")
+            p.text-24.text-multi-lines.award-para #[span.text-bold 日冠军奖励]<br>至少{{ model.award.day_award }}元现金红包
+            p.text-24.text-multi-lines.award-para #[span.text-bold 周冠军奖励]<br>至少{{ model.award.week_award }}元现金红包
+            p.text-24.text-multi-lines.award-para #[span.text-bold 月冠军奖励]<br>至少{{ model.award.month_award }}元现金红包
+            p.text-24.text-multi-lines.award-para #[span.text-bold 年冠军奖励]<br>至少{{ model.award.year_award }}元现金红包
+            p.text-20.text-multi-lines.text-light.index-tip 注：以上奖励均由赞助商<br>{{ model.sponsor.sponsor_name }}向参赛者提供。
+        button.text-white.text-32.text-center.join-btn(@click="joinGame()") 立即报名参赛
+
+      //-中奖页面
+      div.win-content
+        div.text-center.win-title
+        div.call-box(flex="cross:center")
+          div.user-logobox(flex="main:center cross:center")
+            img.user-logo(:src="model.user_info.avatar_url || defaultImg", alt="赞助商logo")
+          span.text-24 {{ model.user_info.nickname | splitNickName }}：
+        p.text-24.text-multi-lines.win-para1 恭喜你以优异成绩获得{{ model.gameTitle }}{{ model.winner_info.win_date }}{{ winType[model.winner_info.win_type - 1] }}{{ winRank[model.winner_info.win_rank - 1] }}。
+        p.text-24.text-multi-lines.win-para1 你将获得由{{ model.sponsor.sponsor_name }}提供的{{ model.winner_info.win_money }}元现金奖励，将以微信红包形式发放给你！
+
+        p.text-24.text-multi-lines.win-para1(v-if="model.winner_info.win_type === 1") 请你继续努力，戒骄戒躁，勇攀高峰！继续冲击周冠军、月冠军、年度总冠军等更大的荣耀和奖励！
+        p.text-24.text-multi-lines.win-para1(v-if="model.winner_info.win_type === 2") 请你继续努力，戒骄戒躁，勇攀高峰！继续冲击月冠军、年度总冠军等更大的荣耀和奖励！
+        p.text-24.text-multi-lines.win-para1(v-if="model.winner_info.win_type === 3 || (model.winner_info.win_type === 4 && model.winner_info.win_rank !== 1)") 请你继续努力，戒骄戒躁，勇攀高峰！继续年度总冠军等更大的荣耀和奖励！
+        p.text-24.text-multi-lines.win-para1(v-if="model.winner_info.win_type === 4 && model.winner_info.win_rank === 1") 你在{{}}年战胜{{}}人，登上冠军宝座，希望您{{}}年继续卫冕，攀上诗词巅峰！
+        div.zwh-box(flex="dir:top main:center")
+          p.text-24.text-right.win-para2 {{ model.gameTitle }}组委会
+          p.text-24.text-right.win-para3 {{ model.winner_info.win_date }}
+        div.win-btnbox1(flex="box:mean")
+          div(flex="main:center")
+            div.text-32.text-center.text-white.win-sharebtn 分享此刻
+          div(flex="main:center")
+            div.text-32.text-center.text-white.win-continuebtn(@click="joinGame()") 继续参赛
+        div.win-btnbox2(flex="main:center")
+          a.text-32.text-center.text-white.win-joinbtn(href="./index.html") 我要参赛
+
+    //- 绑定微信弹窗
+    div.fix-lt.bind-weixin-mask(flex="main:center cross:center", v-if="showBindWeixin")
+      div.bind-weixin-box
+        p.text-28.text-multi-lines.bind-wx-para 本次大赛所有奖励将以余额方式发放至您的微信账户，若您未绑定微信将无法参与，请尽快绑定微信赢取大奖！
+        p.text-28.text-multi-lines.bind-wx-para 在快红包APP中点击“我的”一“设置”一“绑定微信号”。
+        div.text-32.text-center.text-white.bind-wx-btn(@click="showBindWeixin = false") 我知道了
+
+    //- 二维码支付
+    div.fix-lt.qrcode-pay-mask(flex="main:center cross:center", v-if="showQrcode", @click="showQrcode = false")
+      div.qrcode-pay-box(@click.stop="showQrcode = true")
+        img.qrcode(:src="payQrcode", alt="")
+        p.text-32.text-center 长按二维码支付1元
+
+  script.
+    //- 必须放在脚本之前，此处先获取后，vue中才能使用
+    //- 页面中带model的均为后端传入的字段，不带model的为前端设置的字段
+    //- window.RenderModel = {{data|safe}}
+    window.RenderModel = {
+      gameTitle: '全民诗词大赛',
+      sponsor: {
+        sponsor_name: '伊利',
+        sponsor_link: 'http://www.yili.com/cms/index',
+        sponsor_logo: 'https://ss1.baidu.com/6ONXsjip0QIZ8tyhnq/it/u=31061248,43125405&fm=58'
+      },
+      award: {
+        day_award: 36,
+        week_award: 128,
+        month_award: 900,
+        year_award: 8000
+      },
+      user_info: {
+        nickname: '大大大大大',
+        avatar_url: 'http://7xi5uc.com1.z0.glb.clouddn.com/khb_default_pic.png'
+      },
+      winner_info: {
+        win_type: '日冠军',
+        win_money: 20,
+        win_date: '2017年01月01日',
+        win_type: 4,
+        win_rank: 1
+      }
+    }
+  script(src="https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js")
+  script(src="https://cdn.bootcss.com/jquery/2.1.4/jquery.min.js")
+  script(src="https://cdn.jsdelivr.net/vue/1.0.26/vue.min.js")
+  script(src="https://cdn.jsdelivr.net/vue.resource/1.2.1/vue-resource.min.js")
+  script(src="https://momentjs.cn/downloads/moment.js")
+  script(src="./js/method.js")
+  script(src="./js/jswe.js")
+  script(src="./js/index.js")
+  script.
+    // 使用fastclick解决300ms延迟
+    if ('addEventListener' in document) {
+      document.addEventListener('DOMContentLoaded', function() {
+        FastClick.attach(document.body);
+      }, false);
+    }
+
+    //- weixin share
+    //- V.initWxData({
+    //-   imgUrl: ''/* 分享链接图片url */,
+    //-   link: '',
+    //-   title: ''/* 分享链接标题 */,
+    //-   desc: ''/* 分享链接内容说明 */,
+    //-   timeLine: ''/* 分享到朋友圈时的内容说明，为空则复用desc的值 */
+    //- }, true);

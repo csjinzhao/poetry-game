@@ -1,0 +1,53 @@
+@import "base";
+
+.rule-page{
+  @include wh(100%, 100%);
+  position: relative;
+}
+.top-bg{
+  width: 100%;
+  z-index: $z-level-0;
+}
+.bottom-bg{
+  width: 100%;
+  z-index: $z-level-0;
+}
+
+.rule-box{
+  @include bg('../img/box_bg.png');
+  @include wh(r(640), r(911));
+  z-index: $z-level-1;
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translate(0, -50%);
+  padding: r(89) r(70) 0;
+}
+.rule-title{
+  margin-bottom: r(50);
+}
+.rule-content{
+  height: r(540);
+  overflow: scroll;
+}
+.rule-content li{
+  padding-left: r(1);
+  list-style: disc;
+}
+.rule-para{
+  margin-bottom: r(18);
+  &:last-child{
+    margin-bottom: 0;
+  }
+}
+.join-box{
+  width: 100%;
+  position: absolute;
+  left: 0;
+  bottom: r(90);
+}
+.join-btn{
+  @include wh(r(287), r(53));
+  @include bg('../img/six_dark_btn.png');
+  line-height: r(53);
+}

@@ -1,0 +1,24 @@
+@import 'variables';
+
+.toast-box{
+  width: 100%;
+  position: fixed;
+  left: 0;
+  top: 50%;
+  margin-top: r(-30);
+  text-align: center;
+  z-index: $z-level-9;
+}
+.toast-para {
+  display: inline-block;
+  height: r(60);
+  line-height: r(60);
+  margin: auto;
+  font-size: $font-24;
+  color: #fff;
+  background: rgba(51,51,51,.8);
+  border-radius: r(10);
+  word-wrap: break-word;
+  word-break: break-all;
+  padding: 0 r(10);
+}

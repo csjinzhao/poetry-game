@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+html(lang="en")
+head
+  meta(charset="UTF-8")
+  meta(http-equiv="X-UA-Compatible" content="IE=edge,chrome=1")
+  meta(name="format-detection" content="telephone=no,email=no,address=no")
+  meta(name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no")
+  title 好运红包规则页
+  link(rel="stylesheet", href="./css/rule.css")
+  script.
+    var html = window.document.documentElement
+    var sw = html.clientWidth
+    var sh = html.clientHeight
+    html.dataset.sw = sw
+    html.dataset.sh = sh
+    html.style.fontSize = sw * (32 / 640) + 'px'
+body
+  div#rule.rule-page(v-cloak)
+    img.fix-lt.top-bg(src="./img/top_bg.png", alt="")
+    img.fix-lb.bottom-bg(src="./img/bottom_bg.png", alt="")
+
+    //- 规则
+    div.rule-box
+      h3.text-50.text-bold.text-center.rule-title 大赛规则
+      div.rule-content
+        p.text-24.text-multi-lines.rule-para 1、奖励分为日奖励、周奖励、月奖励以及年度奖励。
+        li.text-24.text-multi-lines.rule-para 日奖励：在一个自然日（昨天00：00到今天00：00）内分数最高、答题速度最快的第1名将获得日冠军，每天24：00公布前一天日冠军并发放奖励和证书。
+        li.text-24.text-multi-lines.rule-para 周冠军：在一个自然周内分数最高、答题速度最快的前2名将分别获得周冠军、周亚军，每周日的24：00公布并发放奖励和证书。
+        li.text-24.text-multi-lines.rule-para 月冠军：在一个自然月内分数最高、答题速度最快的前3名将分别获得月冠军、月亚军、月季军，在本月最后一天24：00公布并发放奖励和证书。
+        li.text-24.text-multi-lines.rule-para 年冠军：在一个自然年内分数最高、答题速度最快的前10名将份别获得奖励，今年的最后一天24：00公布并发放奖励和证书。
+        p.text-24.text-multi-lines.rule-para 2、赞助商根据参与比赛人次数不断提高奖金数量，参与人次越高奖金越多。
+        p.text-24.text-multi-lines.rule-para 3、用户每天参与比赛次数不限，以最高得分成绩以及次成绩对应的完成时间作为排名依据。
+        p.text-24.text-multi-lines.rule-para 4、本比赛以唐诗、宋词、元曲以及汉赋等作为题源。
+        p.text-24.text-multi-lines.rule-para 5、题型有：选择题、填空题、填诗句、找诗句等。
+        p.text-24.text-multi-lines.rule-para 6、答题注意事项如下：
+        li.text-24.text-multi-lines.rule-para 答题过程中点击确认后将不可更改。
+        li.text-24.text-multi-lines.rule-para 答题过程中请注意保持网络通畅，否则会影响最终成绩。
+        li.text-24.text-multi-lines.rule-para 答题完毕，成绩生成前请勿关闭此页面，否则将视为自动放弃答题。
+        li.text-24.text-multi-lines.rule-para 答题时间超过24小时且未提交答案的视为自动放弃。
+      div.join-box(flex="main:center")
+        div.text-32.text-white.text-center.join-btn(@click="") 立即报名参赛
+
+  script(src="https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js")
+  script(src="https://cdn.bootcss.com/jquery/2.1.4/jquery.min.js")
+  script(src="https://cdn.jsdelivr.net/vue/1.0.26/vue.min.js")
+  script(src="./js/method.js")
+  script(src="./js/rule.js")
+  script.
+    // 使用fastclick解决300ms延迟
+    if ('addEventListener' in document) {
+      document.addEventListener('DOMContentLoaded', function() {
+        FastClick.attach(document.body);
+      }, false);
+    }

@@ -1,0 +1,195 @@
+@import "variables";
+
+// 文字对齐
+.text-left {
+  text-align: left;
+}
+.text-right {
+  text-align: right;
+}
+.text-center {
+  text-align: center;
+}
+.text-justify {
+  text-align: justify;
+}
+
+// 字体颜色
+.text-white {
+  color: $text-white;
+}
+.text-black{
+  color: $text-black;
+}
+.text-red {
+  color: $text-red;
+}
+.text-yellow {
+  color: $text-yellow;
+}
+.text-blue {
+  color: $text-blue;
+}
+.text-green {
+  color: $text-green;
+}
+.text-dark {
+  color: $text-dark;
+}
+.text-normal {
+  color: $text-normal;
+}
+.text-light {
+  color: $text-light;
+}
+
+// 背景颜色
+.bg-white {
+  background: $bg-white;
+}
+.bg-black{
+  background: $bg-black;
+}
+.bg-grey{
+  background: $bg-grey !important;
+}
+.bg-red {
+  background: $bg-red;
+}
+.bg-yellow {
+  background: $bg-yellow;
+}
+.bg-blue {
+  background: $bg-blue;
+}
+.bg-green {
+  background: $bg-green;
+}
+
+// 字体尺寸
+.text-bold{
+  font-weight: bold !important;
+}
+small,
+.text-small {
+  font-size: $font-22;
+}
+.text-16{
+  font-size: $font-16;
+}
+.text-18{
+  font-size: $font-18;
+}
+.text-20{
+  font-size: $font-20;
+}
+.text-22{
+  font-size: $font-22;
+}
+.text-24{
+  font-size: $font-24;
+}
+.text-26{
+  font-size: $font-26;
+}
+.text-28{
+  font-size: $font-28;
+}
+.text-30{
+  font-size: $font-30;
+}
+.text-32{
+  font-size: $font-32;
+}
+.text-36{
+  font-size: $font-36;
+}
+.text-40{
+  font-size: $font-40;
+}
+.text-50{
+  font-size: $font-50;
+}
+
+// 单行...
+.text-one-line {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+// 多行文字
+.text-multi-lines {
+  margin-top: -.25em;
+  margin-bottom: -.25em;
+  line-height: 1.5em;
+  word-wrap: break-word;
+  word-break: break-all;
+  text-align: justify;
+}
+
+// 固定定位
+.fix-lt{ // 左上
+  position: fixed;
+  left: 0;
+  top: 0;
+}
+.fix-lb{ // 左下
+  position: fixed;
+  left: 0;
+  bottom: 0;
+}
+.fix-rt{ // 右上
+  position: fixed;
+  right: 0;
+  top: 0;
+}
+.fix-rb{ // 右下
+  position: fixed;
+  right: 0;
+  bottom: 0;
+}
+// 固定定位
+.absolute-lt{ // 左上
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+.absolute-lb{ // 左下
+  position: absolute;
+  left: 0;
+  bottom: 0;
+}
+.absolute-rt{ // 右上
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+.absolute-rb{ // 右下
+  position: absolute;
+  right: 0;
+  bottom: 0;
+}
+
+// 粗体字
+b,
+strong,
+.text-strong {
+  font-weight: bold;
+}
+
+sub,
+sup {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+}
+
+sup {
+  top: -0.5em;
+}
+
+sub {
+  bottom: -0.25em;
+}

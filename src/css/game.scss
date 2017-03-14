@@ -1,0 +1,151 @@
+@import "base";
+
+.game-page{
+  @include wh(100%, 100%);
+  position: relative;
+}
+.top-bg{
+  width: 100%;
+  z-index: $z-level-0;
+}
+.bottom-bg{
+  width: 100%;
+  z-index: $z-level-0;
+}
+
+.game-box{
+  @include bg('../img/box_bg.png');
+  @include wh(r(640), r(911));
+  z-index: $z-level-1;
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translate(0, -50%);
+}
+
+// loading
+.loading-content, .ending-content{
+  @include wh(100%, 100%);
+  background: url('../img/index_award_bg.png') r(50) r(39) no-repeat;
+  background-size: r(540) r(820);
+  padding: 0 r(70);
+  position: relative;
+  display: none;
+}
+.loading-para, .ending-para{
+  width: 100%;
+  height: r(32);
+  position: absolute;
+  left: 0;
+  top: 42%;
+  transform: translate(0, -50%);
+}
+
+// 答题
+.game-content{
+  width: 100%;
+  height: 100%;
+  padding: r(60) r(70) 0;
+}
+.game-topbox{
+  height: r(60);
+  margin-bottom: r(20);
+}
+.user-infobox{
+  height: r(60);
+}
+.user-imgbox{
+  width: r(60);
+  height: r(60);
+  background: url('../img/logo_bg.png');
+  background-size: 100% 100%;
+}
+.user-img{
+  width: r(50);
+  height: r(50);
+  border-radius: 50%;
+  margin: r(5);
+}
+.user-otherbox{
+  margin-left: r(10);
+}
+
+.game-centerbox{
+}
+.question-smalltitle{
+  margin-bottom: r(15);
+}
+// 单选题
+.question1-para{
+  margin-bottom: r(15);
+}
+.question1-ss-box{
+  width: 100%;
+  height: r(46);
+  line-height: r(46);
+  border: 1px solid #ccc;
+  margin-bottom: r(10);
+  padding-left: r(10);
+}
+
+// 填字题
+.question2-aw-bigbox{
+  width: 100%;
+}
+.question2-aw-box{
+  display: inline-block;
+  width: r(50);
+  height: r(50);
+  line-height: r(50);
+  background: #fff;
+  border: 1px solid $border-grey;
+  margin-left: r(13);
+  margin-top: r(15);
+
+  &:nth-child(8n+1){
+    margin-left: 0;
+  }
+}
+.question2-answerbox{
+  margin-top: r(50);
+}
+.question2-input{
+  height: r(26);
+  border-bottom: 1px solid $border-grey;
+  padding-left: r(10);
+}
+// 识别诗句题
+
+
+// 对句题
+.question4-answerbox{
+  margin-top: r(80);
+}
+.question4-input{
+  height: r(26);
+  border-bottom: 1px solid $border-grey;
+  padding-left: r(10);
+}
+
+// 按钮
+.game-btnbox{
+  width: r(500);
+  height: r(56);
+  position: absolute;
+  left: r(70);
+  bottom: r(80);
+}
+.gane-surebtn{
+  width: r(210);
+  height: r(56);
+  line-height: r(56);
+  background-color: #ccc;
+  margin-left: r(20);
+}
+.game-giveupbtn{
+  width: r(210);
+  height: r(56);
+  line-height: r(56);
+  background-color: #ccc;
+  margin-right: r(20);
+}

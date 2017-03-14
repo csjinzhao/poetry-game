@@ -1,0 +1,205 @@
+@import "base";
+
+.index-page{
+  @include wh(100%, 100%);
+  position: relative;
+}
+.top-bg{
+  width: 100%;
+  z-index: $z-level-0;
+}
+.bottom-bg{
+  width: 100%;
+  z-index: $z-level-0;
+}
+
+// 首页
+.index-box{
+  @include bg('../img/box_bg.png');
+  @include wh(100%, r(911));
+  z-index: $z-level-1;
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translate(0, -50%);
+}
+.index-content{
+  @include wh(100%, 100%);
+  display: none;
+}
+.index-top-content{
+  width: 100%;
+  position: relative;
+}
+.index-shadow{
+  @include wh(r(364), r(216));
+  position: absolute;
+  right: r(20);
+  top: r(-55);
+}
+.index-leftbox{
+  width: r(131);
+  padding-top: r(84);
+  margin-left: r(95);
+}
+.index-img1{
+  @include wh(r(120), r(417));
+  display: block;
+  margin: 0 auto r(30);
+}
+.other-link{
+  display: block;
+  line-height: r(40);
+  margin-bottom: r(20);
+  @include wh(100%, r(40));
+  @include bg('../img/three_grey_btn.png');
+  @include anchor-color($text-white);
+
+  &:last-child{
+    margin-bottom: 0;
+  }
+}
+.index-rightbox{
+  @include wh(100%, 100%);
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  padding-top: r(167);
+}
+.index-titlebox{
+  // display: table;
+  display: inline-block;
+  margin: 0 0 r(50) r(138);
+  position: relative;
+}
+.index-title{
+  display: inline-block;
+  letter-spacing: r(4);
+}
+.sponsor-link{
+  position: absolute;
+  right: r(-104);
+  top: r(-18);
+  @include wh(r(94), r(28));
+  @include bg('../img/logo_bg.png');
+}
+.sponsor-logo{
+  @include wh(r(94), r(28));
+}
+.award-para{
+  margin-bottom: r(24);
+  padding-left: r(290);
+  &:last-child{
+    margin-bottom: r(44);
+  }
+}
+.index-tip{
+  margin-bottom: r(100);
+  padding-left: r(292);
+}
+.join-btn{
+  display: block;
+  line-height: r(53);
+  margin: r(74) auto 0;
+  background: url('../img/five_dark_btn.png');
+  background-size: 100% 100%;
+  @include wh(r(287), r(53));
+}
+
+// 获奖弹窗
+.win-content{
+  @include wh(100%, 100%);
+  background: url('../img/index_award_bg.png') r(50) r(39) no-repeat;
+  background-size: r(540) r(820);
+  padding: r(70) r(70) 0;
+}
+.win-title{
+  @include wh(r(396), r(126));
+  @include bg('../img/index_award_img1.png');
+  margin: 0 auto r(30);
+}
+.call-box{
+  margin: 0 auto r(30);
+}
+.user-logobox{
+  @include wh(r(60), r(60));
+  @include bg('../img/logo_bg.png');
+  margin-right: r(10);
+}
+.user-logo{
+  @include wh(r(50), r(50));
+  border-radius: 50%;
+}
+.win-para1{
+  margin-bottom: r(20);
+  &:last-child{
+    margin-bottom: 0;
+  }
+}
+.zwh-box{
+  @include wh(100%, r(80));
+  background: url('../img/index_award_z.png') right 0 no-repeat;
+  background-size: r(80) r(80);
+  margin-bottom: r(75);
+}
+.win-para2{
+  margin-bottom: r(24);
+}
+.win-btnbox1, .win-btnbox2{
+  @include wh(r(500), r(53));
+  position: absolute;
+  left: r(70);
+  bottom: r(110);
+}
+.win-sharebtn{
+  @include wh(r(209), r(53));
+  @include bg('../img/four_dark_btn.png');
+  line-height: r(53);
+}
+.win-continuebtn{
+  @include wh(r(209), r(53));
+  @include bg('../img/four_grey_btn.png');
+  line-height: r(53);
+}
+.win-joinbtn{
+  @extend .win-sharebtn;
+}
+
+// 绑定微信弹窗
+.bind-weixin-mask, .qrcode-pay-mask{
+  @include wh(100%, 100%);
+  background-color: rgba(51,51,51,.8);
+  z-index: $z-level-4;
+  // display: none;
+}
+.bind-weixin-box, .qrcode-pay-box{
+  @include wh(r(540), r(430));
+  @include bg('../img/index_bind_weixin.png');
+  padding: r(50) r(40) 0;
+}
+.bind-wx-para{
+  margin-bottom: r(21);
+}
+.bind-wx-btn{
+  @extend .win-continuebtn;
+  margin: r(23) auto 0;
+}
+
+// 二维码支付
+.qrcode-pay-mask{
+  @include wh(100%, 100%);
+  background-color: rgba(51,51,51,.8);
+  z-index: $z-level-4;
+  // display: none;
+}
+.qrcode-pay-box{
+  @include wh(r(540), r(430));
+  @include bg('../img/index_bind_weixin.png');
+  padding-top: r(40);
+}
+.qrcode{
+  display: block;
+  @include wh(r(300), r(300));
+  margin: 0 auto r(20);
+  background-color: #ccc;
+}

@@ -1,0 +1,60 @@
+@import "base";
+
+.rank-page{
+  @include wh(100%, 100%);
+  position: relative;
+}
+.top-bg{
+  width: 100%;
+  z-index: $z-level-0;
+}
+.bottom-bg{
+  width: 100%;
+  z-index: $z-level-0;
+}
+
+.rank-box{
+  @include bg('../img/list_bg.png');
+  @include wh(r(634), r(926));
+  z-index: $z-level-1;
+  position: absolute;
+  left: r(3);
+  top: 50%;
+  transform: translate(0, -50%);
+  padding: r(72) r(70) 0;
+}
+.rank-content{
+  margin: 0 auto;
+}
+.rank-navlist{
+  @include wh(100%, r(60));
+  @include bg('../img/nav_bg.png');
+}
+.rank-li{
+  height: r(60);
+}
+.rank-li span{
+  @include wh(r(122), r(55));
+  line-height: r(55);
+}
+.nav-active{
+  @include bg('../img/nav_list_bg.png');
+  color: $text-normal;
+}
+.rank-result{
+}
+.rank-th{
+  height: r(50);
+  border-bottom: 1px solid $border-grey;
+}
+.rank-ul{
+  height: r(580);
+  overflow-y: scroll;
+}
+.rank-list{
+  height: r(60);
+  border-bottom: 1px solid $border-grey-light;
+  &:first-child{
+    font-weight: bold;
+  }
+}

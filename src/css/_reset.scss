@@ -1,0 +1,141 @@
+@import "variables";
+@import "functions";
+
+/*! Pure v0.6.0 | Yahoo! Inc. | BSD License */
+/*! normalize.css v3.0.2 | MIT License | git.io/normalize */
+
+// 所有的标准 HTML5 标签
+// https://developer.mozilla.org/zh-CN/docs/Web/Guide/HTML/HTML5/HTML5_element_list
+html,head,title,base,link,meta,style,script,noscript,
+template,body,section,nav,article,aside,h1,h2,h3,h4,h5,h6,header,
+footer,address,main,p,hr,pre,blockquote,ol,ul,li,dl,
+dt,dd,figure,figcaption,div,a,em,strong,small,s,cite,
+q,dfn,abbr,data,time,code,var,samp,kbd,sub,i,b,u,mark,
+ruby,rt,rp,bdi,bdo,span,br,wbr,ins,del,img,iframe,embed,
+object,param,video,audio,source,track,canvas,map,area,
+svg,math,table,caption,colgroup,col,tbody,thead,tfoot,
+tr,td,th,form,fieldset,legend,label,input,button,select,
+datalist,optgroup,option,textarea,keygen,output,progress,
+meter,details,summary,menuitem,menu {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+}
+
+html {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  font-family: sans-serif;
+  // 阻止 iOS 屏幕翻转后字体调整, 不影响用户缩放
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+  // 全局继承盒模型
+  box-sizing: border-box;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+body {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  font-size: $font-26;
+  line-height: 1;
+  color: $text-normal;
+  background-color: #f3f3f7;
+}
+
+// 去掉 heading 字体加粗
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-size: $font-26;
+  font-weight: normal;
+}
+
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+main,
+menu,
+nav,
+section,
+summary {
+  display: block;
+}
+
+audio,
+canvas,
+progress,
+video {
+  display: inline-block;
+  vertical-align: baseline;
+}
+
+audio:not([controls]) {
+  display: none;
+  height: 0;
+}
+
+[hidden],
+template {
+  display: none;
+}
+
+a {
+  text-decoration: none;
+  @include anchor-color($text-white);
+
+  &:active,
+  &:hover {
+    outline: 0;
+  }
+}
+
+img {
+  max-width: 100%;
+  border: 0;
+}
+
+svg:not(:root) {
+  overflow: hidden;
+}
+
+hr {
+  -moz-box-sizing: content-box;
+  box-sizing: content-box;
+  height: 0;
+}
+
+pre {
+  overflow: auto;
+}
+
+code,
+kbd,
+pre,
+samp {
+  font-family: $font-family-monospace;
+  font-size: 1em;
+}
+
+ul, li {
+  list-style: none;
+}

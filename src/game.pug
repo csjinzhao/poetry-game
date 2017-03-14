@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+html(lang="en")
+head
+  meta(charset="UTF-8")
+  meta(http-equiv="X-UA-Compatible" content="IE=edge,chrome=1")
+  meta(name="format-detection" content="telephone=no,email=no,address=no")
+  meta(name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no")
+  title 答题
+  link(rel="stylesheet", href="./css/game.css")
+  script.
+    var html = window.document.documentElement
+    var sw = html.clientWidth
+    var sh = html.clientHeight
+
+    html.dataset.sw = sw
+    html.dataset.sh = sh
+    html.style.fontSize = sw * (32 / 640) + 'px'
+body
+  div#game.game-page(v-cloak)
+    img.fix-lt.top-bg(src="./img/top_bg.png", alt="")
+    img.fix-lb.bottom-bg(src="./img/bottom_bg.png", alt="")
+
+    //- 答题
+    div.game-box
+      //- loading:调取比赛题目
+      div.loading-content
+        h3.text-32.text-center.loading-para 正在调取比赛题目，请稍后...
+
+      //- ending:正在生成评分
+      div.ending-content
+        h3.text-32.text-center.ending-para 正在生成评分，请稍后...
+
+      //- 答题内容
+      div.game-content
+        div.game-topbox(flex="main:justify cross:center")
+          div.user-infobox(flex="dir:left")
+            div.user-imgbox
+              img.user-img(:src="model.user_info.avatar_url", alt="")
+            div.user-otherbox(flex="dir:top main:justify")
+              p.user-nickname {{ model.user_info.nickname }}
+              p.user-id ID:{{ model.user_info.user_id }}
+          p.text-40 {{ 1000 }}s
+
+        div.game-centerbox
+          //- 根据设置的变量currentIndex 的值来决定显示哪一种题型，而题型的内容则是题目数组的 题号索引
+          //- 题型1：单选题(每题4分，共6道，共24分)
+          div.question-type1(v-if="currentIndex > 0 && currentIndex <= questionNumAdd(questionInfo.question_typenum, 1)")
+            h4.text-24.text-multi-lines.question-smalltitle {{ currentIndex }}/{{ questionInfo.questions.length }} 单选题：根据内容选择合适的选项。(每题{{ questionInfo.question_score[0] }}分, 共{{ questionInfo.question_score[0] * questionInfo.question_typenum[0] }}分)
+            p.text-24.text-multi-lines.question1-para {{ questionInfo.questions[currentIndex - 1].question_ask1 }}
+            div.text-24.question1-ss-box(
+              @click="selectSingle($index)",
+              v-for="questionChoice in questionInfo.questions[currentIndex - 1].question_choices"
+            ) {{ singleChoiceIndex[$index] }} {{ questionChoice }}
+
+          //- 题型2：填字题(每题5分，共6道，共30分)
+          div.question-type2(v-if="currentIndex > questionNumAdd(questionInfo.question_typenum, 1) && currentIndex <= questionNumAdd(questionInfo.question_typenum, 2)")
+            h4.text-24.text-multi-lines.question-smalltitle {{ currentIndex }}/{{ questionInfo.questions.length }} 填字题：填写缺少的文字，补全诗句。(每题{{ questionInfo.question_score[1] }}分, 共{{ questionInfo.question_score[1] * questionInfo.question_typenum[1] }}分)
+            div.question2-aw-bigbox
+              div.text-center.question2-aw-box(
+                v-for="questionWord in questionInfo.questions[currentIndex - 1].question_ask2.split('')"
+              ) {{ questionWord === '#' ? '？' : questionWord }}
+            div.question2-answerbox(flex="dir:left main:justify cross:center box:first")
+              span.text-26.question2-span 回答：
+              input.text-26.question2-input
+
+          //- 题型3：识别诗句题(每题5分，共5道，共25分)
+          div.question-type3(v-if="currentIndex > questionNumAdd(questionInfo.question_typenum, 2) && currentIndex <= questionNumAdd(questionInfo.question_typenum, 3)")
+            h4.text-24.text-multi-lines.question-smalltitle {{ currentIndex }}/{{ questionInfo.questions.length }} 识别诗句题：从下面的文字中进行挑选，组成一句{{ 五言律诗 }}。(每题{{ questionInfo.question_score[2] }}分, 共{{ questionInfo.question_score[2] * questionInfo.question_typenum[2] }}分)
+            div.question3-wa-bigbox1(v-if="")
+              div.text-center.question3-wa-box
+            div.question3-wa-bigbox2(v-if="")
+              div.text-center.question3-wa-box
+            div.question3-wa-bigbox3(v-if="")
+              div.text-center.question3-wa-box
+
+          //- 题型4：对句题(每题7分，共3道，共21分)
+          div.question-type4(v-if="currentIndex > questionNumAdd(questionInfo.question_typenum, 3) && currentIndex <= questionNumAdd(questionInfo.question_typenum, 4)")
+            h4.text-24.text-multi-lines.question-smalltitle {{ currentIndex }}/{{ questionInfo.questions.length }} 对句题：根据给出的内容，填写横线上空缺的诗句。(每题{{ questionInfo.question_score[3] }}分, 共{{ questionInfo.question_score[3] * questionInfo.question_typenum[3] }}分)
+            p.text-24.text-multi-lines.question4-para {{ questionInfo.questions[currentIndex - 1].question_ask4 }}
+            div.question4-answerbox(flex="dir:left main:justify cross:center box:first")
+              span.text-26.question4-span 回答：
+              input.text-26.question4-input
+
+        div.game-btnbox(flex="dir:left main:justify")
+          div.text-white.text-center.gane-surebtn(@click="sureAnswer(currentIndex)") 确认回答
+          div.text-white.text-center.game-giveupbtn(@click="giveupAnswer(currentIndex)") 放弃回答
+
+  script.
+    //- window.RenderModel = {{data|safe}}
+    window.RenderModel = {
+      user_info: {
+        nickname: '大大大大',
+        user_id: '1234567',
+        avatar_url: 'http://7xi5uc.com1.z0.glb.clouddn.com/khb_default_pic.png'
+      },
+      //- 每种题型问题总数
+      question_info: {
+        //- 每种题型 个数
+        question_typenum: [2, 4, 3, 3],
+        //- 每种题型 分数
+        question_score: [4, 5, 5, 7],
+        questions: [
+          //- 单选题，提交答案时提交 选项和内容
+          {
+            question_ask1: '刘永有句诗句“衣带渐宽终不悔”，请问他想表达的是？',
+            question_choices: ['忧国忧民', '思念亲人', '艰苦奋斗', '心情烦闷']
+          },
+          {
+            question_ask1: '李商隐有句诗句“此情可待成追忆，只是当时已惘然”，请问他当时的心情是？',
+            question_choices: ['回忆亲人', '仕途艰难', '心高气傲']
+          },
+          //- 填写缺少的文字，补全诗句。
+          {
+            question_ask2: '金沙水拍云#暖，大渡桥横铁索寒。更喜岷山千里雪，三军过后尽开颜。'
+          },
+          {
+            question_ask2: '床前明月光，疑似地上#。举头望明月，低头思故乡。'
+          },
+          {
+            question_ask2: '床前明月光疑似地上,举头望明#低头思故乡。'
+          },
+          {
+            question_ask2: '金沙水拍云崖暖，大渡桥横铁索寒。更喜#山千里雪，三军过后尽开颜。'
+          },
+          //- 根据以下文字提示，写出五言律诗。有3*3 3*4 4*4
+          {
+            question_ask3: '窗船床前明月光名潜',
+            question_type: 1,
+            question_kind: '五言律诗'
+          },
+          {
+            question_ask3: '参值谁知盘中餐水粒辛苦汗',
+            question_type: 2,
+            question_kind: '五言律诗'
+          },
+          {
+            question_ask3: '思乡头明月闪山重水柳暗花明又一村',
+            question_type: 3,
+            question_kind: '七言律诗'
+          },
+          //- 根据给出的内容，填写横线处空缺的诗句。
+          {
+            question_ask4: '床前明月光，疑是地上霜。举头望明月，__________。'
+          },
+          {
+            question_ask4: '相见时难别亦难，______________。春蚕到死丝方尽，蜡炬成灰泪始干。'
+          },
+          {
+            question_ask4: '三顾频烦天下计，两朝开济老臣心。______________，长使英雄泪满襟。'
+          }
+        ]
+      }
+    }
+  script(src="https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js")
+  script(src="https://cdn.bootcss.com/jquery/2.1.4/jquery.min.js")
+  script(src="https://cdn.jsdelivr.net/vue/1.0.26/vue.min.js")
+  script(src="https://cdn.jsdelivr.net/vue.resource/1.2.1/vue-resource.min.js")
+  script(src="./js/method.js")
+  script(src="./js/game.js")

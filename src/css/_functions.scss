@@ -1,0 +1,25 @@
+// 单位转换
+// @param {int} $px - 设计图上的 px 大小
+// @returns {rem} - 转换后的 rem 值
+@function r($px) {
+  @return $px / 32 + rem;
+}
+
+@mixin anchor-color($color) {
+  color: $color;
+
+  &:active,
+  &:visited {
+    color: $color;
+  }
+}
+
+@mixin bg($bgimg) {
+  background: url($bgimg) no-repeat;
+  background-size: 100% 100%;
+}
+
+@mixin wh($width, $height){
+  width: $width;
+  height: $height;
+}

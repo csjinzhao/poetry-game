@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+html(lang="en")
+head
+  meta(charset="UTF-8")
+  meta(http-equiv="X-UA-Compatible" content="IE=edge,chrome=1")
+  meta(name="format-detection" content="telephone=no,email=no,address=no")
+  meta(name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no")
+  title 游戏明细
+  link(rel="stylesheet", href="./css/detail.css")
+  script.
+    var html = window.document.documentElement
+    var sw = html.clientWidth
+    var sh = html.clientHeight
+
+    html.dataset.sw = sw
+    html.dataset.sh = sh
+    html.style.fontSize = sw * (32 / 640) + 'px'
+body
+  div#detail.detail-page(v-cloak)
+    img.fix-lt.top-bg(src="./img/top_bg.png", alt="")
+    img.fix-lb.bottom-bg(src="./img/bottom_bg.png", alt="")
+
+    //- 答题
+    div.detail-box
+      //- 答题内容
+      div.detail-content
+        div.detail-topbox(flex="main:justify cross:center")
+          div.user-infobox(flex="dir:left")
+            div.user-imgbox
+              img.user-img(:src="model.user_info.avatar_url", alt="")
+            div.user-otherbox(flex="dir:top main:justify")
+              p.user-nickname {{ model.user_info.nickname }}
+              p.user-id ID:{{ model.user_info.user_id }}
+          p.text-40 {{ 1000 }}s
+
+  script.
+    //- window.RenderModel = {{data|safe}}
+    window.RenderModel = {
+      user_info: {
+        nickname: '大大大大',
+        user_id: '1234567',
+        avatar_url: 'http://7xi5uc.com1.z0.glb.clouddn.com/khb_default_pic.png'
+      }
+    }
+
+  script(src="https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js")
+  script(src="https://cdn.bootcss.com/jquery/2.1.4/jquery.min.js")
+  script(src="https://cdn.jsdelivr.net/vue/1.0.26/vue.min.js")
+  script(src="https://cdn.jsdelivr.net/vue.resource/1.2.1/vue-resource.min.js")
+  script(src="./js/method.js")
+  script(src="./js/detail.js")
+  script.
+    // 使用fastclick解决300ms延迟
+    if ('addEventListener' in document) {
+      document.addEventListener('DOMContentLoaded', function() {
+        FastClick.attach(document.body);
+      }, false);
+    }

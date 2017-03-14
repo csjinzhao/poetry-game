@@ -1,0 +1,52 @@
+@import "base";
+
+.detail-page{
+  @include wh(100%, 100%);
+  position: relative;
+}
+.top-bg{
+  width: 100%;
+  z-index: $z-level-0;
+}
+.bottom-bg{
+  width: 100%;
+  z-index: $z-level-0;
+}
+
+.detail-box{
+  @include bg('../img/box_bg.png');
+  @include wh(r(640), r(911));
+  z-index: $z-level-1;
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translate(0, -50%);
+}
+// 答题
+.detail-content{
+  width: 100%;
+  height: 100%;
+  padding: r(60) r(70) 0;
+}
+.detail-topbox{
+  height: r(60);
+  margin-bottom: r(20);
+}
+.user-infobox{
+  height: r(60);
+}
+.user-imgbox{
+  width: r(60);
+  height: r(60);
+  background: url('../img/logo_bg.png');
+  background-size: 100% 100%;
+}
+.user-img{
+  width: r(50);
+  height: r(50);
+  border-radius: 50%;
+  margin: r(5);
+}
+.user-otherbox{
+  margin-left: r(10);
+}
